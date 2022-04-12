@@ -17,5 +17,5 @@ routes.delete('/products/', ProductController.delete)
 routes.get('/ads/create', (req, res) => res.redirect('/products/create'));
 
 
-console.log(multer.array("photos",  6 ).)
+
 module.exports = routes
