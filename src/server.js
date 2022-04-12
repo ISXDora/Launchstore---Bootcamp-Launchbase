@@ -18,7 +18,6 @@ nunjucks.configure("src/app/views", {
     autoespace: false
 });
 
-
 server.listen(5000, function () {
     console.log('Server is running');
 });
