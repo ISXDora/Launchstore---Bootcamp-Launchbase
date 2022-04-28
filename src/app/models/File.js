@@ -1,4 +1,5 @@
 const db = require("../../config/db")
+const fs = require('fs')
 
 module.exports = {
     create({filename, path, product_id}) { // desestruturação do req.body ---não esquecer chaves se não, vai entrar os dados em 1 único campo na tabela
@@ -17,5 +18,15 @@ module.exports = {
         ]
 
         return db.query(query, values)
+    },
+    async delete(id){
+
+        const results = await db.query(`SELECT * FROM files WHERE id = $id`, [id])
+        const file = results.rows[0]
+
+        fs.unlinkSync(file.path)  
+        return db.query(`
+            DELETE FROM files WHERE id = $1
+        `, [id])
     }
 }
