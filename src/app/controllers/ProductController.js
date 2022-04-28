@@ -72,9 +72,15 @@ module.exports = {
             }
         }
 
-        if(req.body.remoded_files){
+        if ( req.files.length != 0 ){
+            const newFilePromise = req.files.map(file => File.create({...file, product_id: req.body.id}))
+
+            await Promise.all(newFilePromise)
+        }
+
+        if(req.body.removed_files){
             
-            const removedFiles = req.body.remoded_files.split(",") //[1,2,3,]
+            const removedFiles = req.body.removed_files.split(",") //[1,2,3,]
             const lastIndex = removedFiles.length - 1 // removendo a última posição que vem vazia
             removedFiles.splice(lastIndex, 1) // [1,2,3] pronto!
 
